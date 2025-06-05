@@ -1,14 +1,32 @@
 {% extends "base.html" %}
-{% block title %}
-  Публикации в категории {{ category.title }}
-{% endblock %}
+{% block title %}Публикации в категории {{ category.title }}{% endblock %}
 {% block content %}
-  <h1 class="text-center">Публикации в категории - {{ category.title }}</h1>
-  <p class="col-6 offset-3 mb-5 lead text-center">{{ category.description }}</p>
-  {% for post in page_obj %}
-    <article class="mb-5">  
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="card mb-4">
+      <div class="card-body text-center">
+        <h1 class="card-title">
+          <i class="bi bi-bookmark"></i> {{ category.title }}
+        </h1>
+        <p class="lead text-muted">{{ category.description }}</p>
+        <span class="badge bg-primary">
+          {{ page_obj.paginator.count }} публикаций
+        </span>
+      </div>
+    </div>
+
+    {% for post in page_obj %}
       {% include "includes/post_card.html" %}
-    </article>   
-  {% endfor %}
-  {% include "includes/paginator.html" %}
+    {% empty %}
+      <div class="card">
+        <div class="card-body text-center text-muted">
+          <i class="bi bi-info-circle" style="font-size: 2rem;"></i>
+          <p class="mt-2 mb-0">В этой категории пока нет публикаций</p>
+        </div>
+      </div>
+    {% endfor %}
+
+    {% include "includes/paginator.html" %}
+  </div>
+</div>
 {% endblock %}

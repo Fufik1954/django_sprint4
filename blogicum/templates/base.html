@@ -1,6 +1,5 @@
 {% load static %}
 {% load django_bootstrap5 %}
-<!DOCTYPE html>
 <html lang="ru">
   <head>
     <meta charset="utf-8">
@@ -9,10 +8,74 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/fav/apple-touch-icon.png' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/fav/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/fav/favicon-16x16.png' %}">
-    <title>
-      {% block title %}{% endblock %}
-    </title>
+    <title>{% block title %}{% endblock %}</title>
     {% bootstrap_css %}
+    <style>
+      :root {
+        --primary-color: #4e73df;
+        --secondary-color: #f8f9fc;
+        --accent-color: #2e59d9;
+        --dark-color: #2c3e50;
+        --light-color: #ffffff;
+        --danger-color: #e74a3b;
+      }
+      body {
+        background-color: var(--secondary-color);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+      .navbar {
+        background-color: var(--primary-color) !important;
+        box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+      }
+      .navbar-brand {
+        font-weight: 600;
+        color: var(--light-color) !important;
+      }
+      .nav-link {
+        color: rgba(255, 255, 255, 0.8) !important;
+      }
+      .nav-link:hover, .nav-link.active {
+        color: var(--light-color) !important;
+      }
+      .card {
+        border: none;
+        border-radius: 0.35rem;
+        box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+        margin-bottom: 1.5rem;
+      }
+      .card-header {
+        background-color: var(--primary-color);
+        color: white;
+        font-weight: 600;
+        border-radius: 0.35rem 0.35rem 0 0 !important;
+      }
+      .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+      }
+      .btn-primary:hover {
+        background-color: var(--accent-color);
+        border-color: var(--accent-color);
+      }
+      .btn-danger {
+        background-color: var(--danger-color);
+        border-color: var(--danger-color);
+      }
+      .page-link {
+        color: var(--primary-color);
+      }
+      .page-item.active .page-link {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+      }
+      footer {
+        background-color: var(--dark-color);
+        color: white;
+      }
+      .text-muted {
+        color: #6c757d !important;
+      }
+    </style>
   </head>
   <body>
     {% include "includes/header.html" %}

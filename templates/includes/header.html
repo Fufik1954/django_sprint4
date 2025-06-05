@@ -1,38 +1,42 @@
 {% load static %}
 <header>
-  <nav class="navbar navbar-light" style="background-color: lightskyblue">
+  <nav class="navbar navbar-light" style="background-color: #4e73df">
     <div class="container">
-      <a class="navbar-brand" href="{% url 'blog:index' %}">
-        <img src="{% static 'img/logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+      <a class="navbar-brand text-white" href="{% url 'blog:index' %}">
         Блогикум
       </a>
       {% with request.resolver_match.view_name as view_name %}
-        <ul class="nav  nav-pills">
+        <ul class="nav nav-pills">
           <li class="nav-item">
-            <a class="nav-link {% if view_name == 'pages:about' %} text-white {% endif %}" href="{% url 'pages:about' %}">
+            <a class="nav-link text-white {% if view_name == 'pages:about' %}active bg-dark{% endif %}" href="{% url 'pages:about' %}">
               О проекте
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {% if view_name == 'pages:rules' %} text-white {% endif %}" href="{% url 'pages:rules' %}">
+            <a class="nav-link text-white {% if view_name == 'pages:rules' %}active bg-dark{% endif %}" href="{% url 'pages:rules' %}">
               Правила
             </a>
           </li>
           {% if user.is_authenticated %}
-            <div class="btn-group" role="group" aria-label="Basic outlined example">
-              <button type="button" class="btn btn-outline-primary"><a class="text-decoration-none text-reset"
-                  href="{% url 'blog:create_post' %}">Написать пост</a></button>
-              <button type="button" class="btn btn-outline-primary"><a class="text-decoration-none text-reset"
-                  href="{% url 'blog:profile' user.username %}">{{ user.username }}</a></button>
-              <button type="button" class="btn btn-outline-primary"><a class="text-decoration-none text-reset"
-                  href="{% url 'logout' %}">Выйти</a></button>
+            <div class="btn-group ms-2" role="group">
+              <a href="{% url 'blog:create_post' %}" class="btn btn-light btn-sm">
+                Написать пост
+              </a>
+              <a href="{% url 'blog:profile' user.username %}" class="btn btn-outline-light btn-sm">
+                {{ user.username }}
+              </a>
+              <a href="{% url 'logout' %}" class="btn btn-outline-light btn-sm">
+                Выйти
+              </a>
             </div>
           {% else %}
-            <div class="btn-group" role="group" aria-label="Basic outlined example">
-              <button type="button" class="btn btn-outline-primary"><a class="text-decoration-none text-reset"
-                  href="{% url 'login' %}">Войти</a></button>
-              <button type="button" class="btn btn-outline-primary"><a class="text-decoration-none text-reset"
-                  href="{% url 'registration' %}">Регистрация</a></button>
+            <div class="btn-group ms-2" role="group">
+              <a href="{% url 'login' %}" class="btn btn-light btn-sm">
+                Войти
+              </a>
+              <a href="{% url 'registration' %}" class="btn btn-outline-light btn-sm">
+                Регистрация
+              </a>
             </div>
           {% endif %}
         </ul>
