@@ -15,7 +15,7 @@ from .forms import ProfileEditForm
 from .utils import (
     annotate_posts_with_comments,
     filter_published_posts,
-    get_paginated_page
+    get_paginated_page  
 )
 
 
@@ -127,12 +127,12 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
 
 class PostDeleteView(LoginRequiredMixin, DeleteView):
     model = Post
-    template_name = 'blog/post_confirm_delete.html'
+    template_name = 'blog/detail.html'
     pk_url_kwarg = 'post_id'
 
     def dispatch(self, request, *args, **kwargs):
         obj = self.get_object()
-        if obj.author != request.user:
+        if obj.author != self.request.user:
             return redirect('blog:post_detail', id=obj.pk)
         return super().dispatch(request, *args, **kwargs)
 

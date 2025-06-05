@@ -6,19 +6,19 @@
   {% elif "/delete/" in request.path %}
     Удаление публикации
   {% else %}
-    Новая публикация
+    Добавление публикации
   {% endif %}
 {% endblock %}
 {% block content %}
   <div class="col d-flex justify-content-center">
-    <div class="card">
+    <div class="card" style="width: 40rem;">
       <div class="card-header">
         {% if '/edit/' in request.path %}
-          <i class="bi bi-pencil-square"></i> Редактирование публикации
+          Редактирование публикации
         {% elif '/delete/' in request.path %}
-          <i class="bi bi-trash"></i> Удаление публикации
+          Удаление публикации
         {% else %}
-          <i class="bi bi-plus-circle"></i> Новая публикация
+          Добавление публикации
         {% endif %}
       </div>
       <div class="card-body">
@@ -26,44 +26,19 @@
           {% csrf_token %}
           {% if not '/delete/' in request.path %}
             {% bootstrap_form form %}
-            <div class="d-grid gap-2">
-              <button type="submit" class="btn btn-primary">
-                {% if '/edit/' in request.path %}
-                  <i class="bi bi-check-circle"></i> Сохранить изменения
-                {% else %}
-                  <i class="bi bi-save"></i> Опубликовать
-                {% endif %}
-              </button>
-            </div>
           {% else %}
-            <div class="alert alert-warning">
-              <h4><i class="bi bi-exclamation-triangle"></i> Внимание!</h4>
-              <p>Вы собираетесь удалить публикацию. Это действие нельзя отменить.</p>
-            </div>
-            <div class="mb-4">
-              {% if object.image %}
-                <img src="{{ object.image.url }}" class="img-fluid rounded mb-3">
+            <article>
+              {% if form.instance.image %}
+                <a href="{{ form.instance.image.url }}" target="_blank">
+                  <img class="border-3 rounded img-fluid img-thumbnail mb-2" src="{{ form.instance.image.url }}">
+                </a>
               {% endif %}
-              <h4>{{ object.title }}</h4>
-              <p class="text-muted">
-                {{ object.pub_date|date:"d E Y" }} |
-                {% if object.location and object.location.is_published %}
-                  {{ object.location.name }}
-                {% else %}
-                  Планета Земля
-                {% endif %}
-              </p>
-              <p>{{ object.text|linebreaksbr }}</p>
-            </div>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-              <a href="{% url 'blog:post_detail' object.id %}" class="btn btn-secondary me-md-2">
-                <i class="bi bi-x-circle"></i> Отмена
-              </a>
-              <button type="submit" class="btn btn-danger">
-                <i class="bi bi-trash"></i> Удалить навсегда
-              </button>
-            </div>
+              <p>{{ form.instance.pub_date|date:"d E Y" }} | {% if form.instance.location and form.instance.location.is_published %}{{ form.instance.location.name }}{% else %}Планета Земля{% endif %}<br>
+              <h3>{{ form.instance.title }}</h3>
+              <p>{{ form.instance.text|linebreaksbr }}</p>
+            </article>
           {% endif %}
+          {% bootstrap_button button_type="submit" content="Отправить" %}
         </form>
       </div>
     </div>

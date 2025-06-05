@@ -10,15 +10,15 @@
 {% block content %}
   {% if user.is_authenticated %}
     <div class="col d-flex justify-content-center">
-      <div class="card" style="width: 40rem; background-color: #f8f9fa; border: 1px solid #dee2e6;">
-        <div class="card-header" style="background-color: #6c757d; color: white; font-size: 1.1rem;">
+      <div class="card" style="width: 40rem;">
+        <div class="card-header">
           {% if '/edit_comment/' in request.path %}
             Редактирование комментария
           {% else %}
             Удаление комментария
           {% endif %}
         </div>
-        <div class="card-body" style="padding: 1.5rem;">
+        <div class="card-body">
           <form method="post"
             {% if '/edit_comment/' in request.path %}
               action="{% url 'blog:edit_comment' comment.post_id comment.id %}"
@@ -27,9 +27,9 @@
             {% if not '/delete_comment/' in request.path %}
               {% bootstrap_form form %}
             {% else %}
-              <p style="font-size: 1rem; color: #212529;">{{ comment.text }}</p>
+              <p>{{ comment.text }}</p>
             {% endif %}
-            {% bootstrap_button button_type="submit" content="Отправить" button_class="btn-secondary" %}
+            {% bootstrap_button button_type="submit" content="Отправить" %}
           </form>
         </div>
       </div>
